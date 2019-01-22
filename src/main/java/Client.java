@@ -12,17 +12,19 @@ public class Client {
         Socket socket = new Socket();
         //超时时间
         socket.setSoTimeout(3000);
+
         socket.connect(new InetSocketAddress(Inet4Address.getLocalHost(), 2000), 3000);
 
         System.out.println("已发起服务器连接，并进入后续流程～");
 
-        System.out.println("客户端信息：" + socket.getLocalAddress() + "P:" + socket.getLocalPort());
-        System.out.println("服务器端信息：" + socket.getInetAddress() + "P:" + socket.getPort());
+        System.out.println("客户端信息：" + socket.getLocalAddress() + "  P:" + socket.getLocalPort());
+        System.out.println("服务器端信息：" + socket.getInetAddress() + "  P:" + socket.getPort());
 
         try {
             //发送接收数据
             todo(socket);
         } catch (Exception e) {
+            System.out.println(e);
             System.out.println("异常关闭");
         }
         //释放资源
@@ -54,14 +56,15 @@ public class Client {
             String echo = socketBufferedReader.readLine();
             if ("bye".equalsIgnoreCase(echo)) {
                 flag = false;
+                System.out.println("bye");
             } else {
                 System.out.println(echo);
             }
         } while (flag);
 
         //释放资源
-        socketBufferedReader.close();
         socketPrintStream.close();
+        socketBufferedReader.close();
     }
 
 }
