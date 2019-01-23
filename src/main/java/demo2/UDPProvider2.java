@@ -7,7 +7,7 @@ import java.util.UUID;
  * @author:zhumeng
  * @desc:
  **/
-public class UDPProvider {
+public class UDPProvider2 {
 
     public static void main(String[] args) throws IOException {
         //生成一份唯一标示

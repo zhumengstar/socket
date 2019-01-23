@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch;
  * @author:zhumeng
  * @desc:
  **/
-public class UDPSearcher {
+public class UDPSearcher2 {
 
 
     private static final int LISTEN_PORT = 30000;
@@ -123,17 +123,14 @@ public class UDPSearcher {
                     //构建接收实体
                     final byte[] buf = new byte[512];
                     DatagramPacket receivePack = new DatagramPacket(buf, buf.length);
-
                     //接收
                     ds.receive(receivePack);
-
                     //打印接收到的信息与发送者的信息
                     //发送者的ip地址
                     String ip = receivePack.getAddress().getHostAddress();
                     int port = receivePack.getPort();
                     int dataLen = receivePack.getLength();
                     String data = new String(receivePack.getData(), 0, dataLen);
-
                     System.out.println("UDPSearcher receive from ip:" + ip + "\tport:" + port + "\tdata:" + data);
 
                     String sn = MessageCreator.parseSn(data);

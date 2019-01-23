@@ -14,24 +14,20 @@ public class UDPProvider {
         //作为接收者，指定一个端口用于数据接收
         DatagramSocket ds = new DatagramSocket(20000);
 
+
         //构建接收实体
         final byte[] buf = new byte[512];
         DatagramPacket receivePack = new DatagramPacket(buf, buf.length);
-
         //接收
         ds.receive(receivePack);
-
         //打印接收到的信息与发送者的信息
         //发送者的ip地址
         String ip = receivePack.getAddress().getHostAddress();
-
         int port = receivePack.getPort();
-
         int dataLen = receivePack.getLength();
-
         String data = new String(receivePack.getData(), 0, dataLen);
-        System.out.println("UDPProvider receive from ip:" + ip
-                + "\tport:" + port + "\tdata:" + data);
+        System.out.println("UDPProvider receive from ip:" + ip + "\tport:" + port + "\tdata:" + data);
+
 
         //构建一份回送数据
         String responseData = "Receive Data with len:" + dataLen;
