@@ -1,3 +1,11 @@
+
+/*/.gradle/
 /.idea/
-/out/
 /.gradle/
+/out/
+/*/gradlew
+/*/gradlew.bat
+/*/.idea/
+/*/gradle/
+/*/src/test/
+/*/src/main/resources/

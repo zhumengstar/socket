@@ -1,2 +1,10 @@
 rootProject.name = 'socket'
+include 'demo1'
+include 'demo2'
+include 'demo3'
+include 'demo4'
+include 'demo5'
+include 'demo6'
+include 'demo7'
+include 'demo8'
 
