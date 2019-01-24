@@ -1,4 +1,7 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -8,7 +11,7 @@ import java.net.SocketException;
  * @author:zhumeng
  * @desc:
  **/
-public class Client3 {
+public class Client4 {
     private static final int PORT = 20000;
     private static final int LOCAL_PORT = 20001;
 
@@ -32,7 +35,7 @@ public class Client3 {
 
         //释放资源
         socket.close();
-        System.out.println("客户端已退出:"+socket.getInetAddress()+" P:"+socket.getLocalPort());
+        System.out.println("客户端已退出:" + socket.getInetAddress() + " P:" + socket.getLocalPort());
     }
 
     private static Socket createSocket() throws IOException {
@@ -63,38 +66,32 @@ public class Client3 {
     }
 
     private static void todo(Socket client) throws IOException {
-        //构建键盘输入
-        InputStream in = System.in;
-        BufferedReader input = new BufferedReader(new InputStreamReader(in));
+
 
         //得到Socket输出流，并转换为打印流
         OutputStream outputStream = client.getOutputStream();
-        PrintStream socketPrintStream = new PrintStream(outputStream);
 
-        //得到Socket输入流,并转换为BufferedReader
+        //得到Socket输入流
         InputStream inputStream = client.getInputStream();
-        BufferedReader socketBufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-        boolean flag = true;
-        do {
-            //键盘读取一行
-            String str = input.readLine();
-            //发送到服务器
-            socketPrintStream.println(str);
+        byte[] buffer = new byte[128];
 
-            //从服务器读取一行
-            String echo = socketBufferedReader.readLine();
-            if ("bye".equalsIgnoreCase(echo)) {
-                flag = false;
-                System.out.println("bye");
-            } else {
-                System.out.println(echo);
-            }
-        } while (flag);
+        //发送到服务器
+        outputStream.write(new byte[]{1});
+
+
+        int read = inputStream.read(buffer);
+        if (read > 0) {
+            System.out.println("收到数量：" + read + " 数据：" + Array.getByte(buffer, 0));
+
+        } else {
+            System.out.println("没有收到：" + read);
+        }
+
 
         //释放资源
-        socketPrintStream.close();
-        socketBufferedReader.close();
+        outputStream.close();
+        inputStream.close();
     }
 
     private static void initSocket(Socket socket) throws SocketException {
