@@ -17,10 +17,10 @@ public class UDPSearcher2 {
         System.out.println("UDPSearcher Started.");
 
         Listener listener = listen();
-
         //读取任意键盘信息退出
-        System.in.read();
         sendBroadcast();
+
+        System.in.read();
 
 
         List<Device> devices = listener.getDevicesAndClose();
@@ -38,7 +38,7 @@ public class UDPSearcher2 {
     private static Listener listen() throws InterruptedException {
         System.out.println("UDPSearcher Start Listen.");
         CountDownLatch countDownLatch = new CountDownLatch(1);
-        Listener listener = new Listener(LISTEN_PORT, countDownLatch);
+        Listener listener = new Listener(LISTEN_PORT,countDownLatch);
         listener.start();
         countDownLatch.await();
         System.out.println("UDPSearcher Finished Listen.");
@@ -116,6 +116,7 @@ public class UDPSearcher2 {
             try {
 
                 ds = new DatagramSocket(listenPort);
+                System.out.println("listenPort:"+listenPort);
 
                 System.out.println("UDPSearcher Started.");
                 while (!done) {
@@ -123,7 +124,9 @@ public class UDPSearcher2 {
                     //构建接收实体
                     final byte[] buf = new byte[512];
                     DatagramPacket receivePack = new DatagramPacket(buf, buf.length);
+
                     //接收
+                    System.out.println("待接收...ing~");
                     ds.receive(receivePack);
                     //打印接收到的信息与发送者的信息
                     //发送者的ip地址

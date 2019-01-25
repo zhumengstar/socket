@@ -43,6 +43,7 @@ public class UDPProvider2 {
                     final byte[] buf = new byte[512];
                     DatagramPacket receivePack = new DatagramPacket(buf, buf.length);
                     //接收
+                    System.out.println("待接收广播数据～");
                     ds.receive(receivePack);
                     //打印接收到的信息与发送者的信息
                     //发送者的ip地址
@@ -58,7 +59,15 @@ public class UDPProvider2 {
                     if (responsePort != -1) {
                         //构建一份回送数据
                         String responseData = MessageCreator.buildWithSn(sn);
+//
+//                        System.out.println("//构建一份回送数据" + ip);
+//                        System.out.println("//构建一份回送数据" + receivePack.getAddress());
+//                        System.out.println("//构建一份回送数据" + receivePack.getAddress().getHostAddress());
+//
+//                        System.out.println("//构建一份回送数据" + responsePort);
+//                        System.out.println("//构建一份回送数据" + port);
                         byte[] responseDataBytes = responseData.getBytes();
+
                         DatagramPacket responsePacket = new DatagramPacket(responseDataBytes,
                                 responseDataBytes.length,
                                 receivePack.getAddress(),
